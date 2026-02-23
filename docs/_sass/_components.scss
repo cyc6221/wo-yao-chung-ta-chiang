@@ -13,7 +13,20 @@ body{
   text-rendering: optimizeLegibility;
 }
 
-.wrapper, .page-content, .post-content{ max-width: var(--maxw); }
+/* 讓所有頁面容器一致：置中 + 同 padding（home/page/post 不位移） */
+.wrapper{
+  width: 100%;
+  max-width: var(--maxw);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+.page-content .wrapper,
+.post-content .wrapper{
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
 
 a{
   color: var(--brand-red);
@@ -25,8 +38,8 @@ a:hover{ opacity: .92; }
 /* =========================================================
    Header / Nav (FIXED for Minima)
    - 固定淺色喜氣 header
-   - 強制 wrapper 排版，避免高度/顏色怪
-   - 兼容 minima 手機版漢堡選單
+   - 移除漢堡（三條槓）
+   - nav 永遠顯示，手機不足就自動換行
    ========================================================= */
 .site-header{
   border-top: 0 !important;
@@ -44,7 +57,8 @@ a:hover{ opacity: .92; }
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: .65rem 0 !important;
+  padding-top: .65rem !important;
+  padding-bottom: .65rem !important;
 }
 
 /* 避免標題在 header 內太大/太高 */
@@ -57,10 +71,29 @@ a:hover{ opacity: .92; }
   line-height: 1.1;
 }
 
-/* Minima nav：桌機 */
+/* nav 基本 */
 .site-nav{
   margin-top: 0 !important;
   line-height: 1;
+}
+
+/* 移除 Minima 的三條槓（漢堡）與 checkbox trigger */
+.site-nav .menu-icon,
+.site-nav .nav-trigger{
+  display: none !important;
+}
+
+/* 讓導覽列永遠顯示（不靠 trigger 展開） */
+.site-nav .trigger{
+  display: flex !important;
+  align-items: center;
+  gap: 1.2rem;
+  position: static !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 /* 連結樣式 */
@@ -68,35 +101,29 @@ a:hover{ opacity: .92; }
   color: var(--text) !important;
   opacity: .85;
   font-weight: 650;
+  white-space: nowrap;
 }
 .site-nav .page-link:hover{ opacity: 1; }
 
-/* Minima 手機漢堡：避免被你 flex 搞亂 */
-.site-nav .nav-trigger{
-  top: 0; /* 避免怪 offset */
-}
-.site-nav .menu-icon{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 手機展開的下拉選單背景、邊框做成喜氣卡片感 */
+/* 手機：空間不足就換行，但保持同一條左邊界 */
 @media screen and (max-width: 600px){
+  .site-header .wrapper{
+    flex-wrap: wrap;
+    row-gap: .5rem;
+  }
+
   .site-nav{
-    position: relative;
+    width: 100%;
   }
+
   .site-nav .trigger{
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
-    box-shadow: var(--shadow);
-    padding: .6rem .7rem;
-    margin-top: .6rem;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: .9rem;
   }
+
   .site-nav .page-link{
-    display: block;
-    padding: .45rem .25rem;
+    padding: .25rem 0 !important;
   }
 }
 
@@ -109,6 +136,14 @@ h1{
   font-size: clamp(2.0rem, 2.7vw, 2.7rem);
   margin-top: 1.2rem;
 }
+
+/* Home / Page / Post 標題對齊同一條線（避免各 layout margin 不一致） */
+.page-heading,
+.post-title,
+h1{
+  margin-left: 0 !important;
+}
+
 h2{
   font-size: clamp(1.35rem, 1.9vw, 1.85rem);
   margin-top: 2.0rem;
