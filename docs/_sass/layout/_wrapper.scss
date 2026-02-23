@@ -1,0 +1,22 @@
+/* _sass/layout/_wrapper.scss */
+
+.wrapper{
+  width: 100%;
+  max-width: var(--maxw);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+.page-content .wrapper,
+.post-content .wrapper{
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+.page-heading,
+.post-title,
+h1{
+  margin-left: 0 !important;
+}
