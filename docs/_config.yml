@@ -15,9 +15,9 @@ highlighter: rouge
 
 header_pages:
   # - index.md
-  - pages/649.md
-  - pages/638.md
-  - pages/539.md
+  - pages/638.md # 威力彩
+  - pages/649.md # 大樂透
+  - pages/539.md # 今彩539
 
 plugins:
   - jekyll-git-metadata
