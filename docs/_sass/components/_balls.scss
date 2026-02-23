@@ -1,0 +1,36 @@
+/* _sass/components/_balls.scss */
+
+/* ===== Lotto balls ===== */
+.ball-row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin: .8rem 0;
+}
+
+.ball{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  letter-spacing: .3px;
+  color: #111827;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.95), rgba(255,255,255,0.0) 35%),
+    radial-gradient(circle at 70% 72%, rgba(0,0,0,0.10), transparent 42%),
+    linear-gradient(135deg, rgba(246,196,83,0.95), rgba(245,158,11,0.85));
+  border: 1px solid rgba(245,158,11,0.55);
+  box-shadow: 0 10px 25px rgba(31,41,55,0.12);
+}
+
+.ball--red{
+  color: #fff;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.65), rgba(255,255,255,0.0) 35%),
+    radial-gradient(circle at 70% 72%, rgba(0,0,0,0.12), transparent 42%),
+    linear-gradient(135deg, rgba(200,30,30,0.98), rgba(225,29,72,0.90));
+  border: 1px solid rgba(255,255,255,0.20);
+}
