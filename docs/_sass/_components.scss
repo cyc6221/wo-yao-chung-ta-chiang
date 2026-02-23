@@ -2,6 +2,7 @@
 
 /* ===== Global ===== */
 html, body { height: 100%; }
+
 body{
   background:
     radial-gradient(900px 500px at 12% -10%, rgba(200,30,30,0.12), transparent 55%),
@@ -21,34 +22,56 @@ a{
 }
 a:hover{ opacity: .92; }
 
-/* ===== Header / Nav (喜氣頂欄) ===== */
+/* =========================================================
+   Header / Nav (FIXED)
+   - 移除 prefers-color-scheme，改由 html[data-theme] 控制
+   - 強制 wrapper 排版，避免 header 看起來高度/顏色怪
+   ========================================================= */
 .site-header{
-  border-top: 0;
-  border-bottom: 1px solid var(--border);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.55));
+  border-top: 0 !important;
+  border-bottom: 1px solid var(--border) !important;
+  background: rgba(255, 247, 243, 0.92) !important;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 2000;
 }
 
-@media (prefers-color-scheme: dark){
-  .site-header{
-    background:
-      linear-gradient(180deg, rgba(15,23,42,0.80), rgba(15,23,42,0.60));
-  }
+.site-header .wrapper{
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .65rem 0 !important;
 }
 
-.site-title, .site-title:visited{
-  color: var(--text);
+/* 避免標題在 header 內太大/太高 */
+.site-title,
+.site-title:visited{
+  color: var(--text) !important;
   letter-spacing: .2px;
+  font-weight: 850;
+  margin: 0 !important;
+  line-height: 1.1;
 }
+
+/* minima 的 nav 在窄螢幕會有按鈕，先保留其結構 */
+.site-nav{
+  margin-top: 0 !important;
+}
+
 .site-nav .page-link{
-  color: var(--text);
+  color: var(--text) !important;
   opacity: .85;
+  font-weight: 650;
 }
 .site-nav .page-link:hover{ opacity: 1; }
+
+/* Dark header：只有手動切到 dark 才變深 */
+html[data-theme="dark"] .site-header{
+  background: rgba(15, 23, 42, 0.86) !important;
+}
 
 /* ===== Typography polish ===== */
 h1,h2,h3{
@@ -145,9 +168,7 @@ p{ color: color-mix(in srgb, var(--text) 90%, var(--text-muted)); }
   transition: transform .08s ease, box-shadow .15s ease, opacity .15s ease;
   text-decoration: none;
 }
-.btn:hover{
-  box-shadow: var(--ring);
-}
+.btn:hover{ box-shadow: var(--ring); }
 .btn:active{
   transform: translateY(1px);
   opacity: .98;
@@ -214,7 +235,9 @@ pre{
   overflow: auto;
   background: var(--code-bg);
 }
-code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
+code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+}
 
 /* ===== Footer ===== */
 .site-footer{
@@ -232,7 +255,9 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
 }
 .post-link{ font-weight: 750; }
 
-/* ===== Theme toggle button ===== */
+/* =========================================================
+   Theme toggle button (VISIBLE + no prefers-color-scheme)
+   ========================================================= */
 .theme-toggle{
   position: fixed;
   right: 18px;
@@ -240,7 +265,7 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
   width: 46px;
   height: 46px;
   border-radius: 999px;
-  border: 1px solid rgba(246,196,83,.45);
+  border: 1px solid rgba(246,196,83,.50);
   background: linear-gradient(135deg, rgba(200,30,30,0.18), rgba(245,158,11,0.14));
   box-shadow: 0 14px 35px rgba(0,0,0,.12);
   cursor: pointer;
@@ -248,21 +273,15 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
   line-height: 1;
   display: grid;
   place-items: center;
-  z-index: 9999;
+  z-index: 99999; /* 保證在最上層 */
+  outline: none;
 }
 
-.theme-toggle:hover{
-  box-shadow: var(--ring);
-}
+.theme-toggle:hover{ box-shadow: var(--ring); }
+.theme-toggle:active{ transform: translateY(1px); }
 
-.theme-toggle:active{
-  transform: translateY(1px);
-}
-
-@media (prefers-color-scheme: dark){
-  html[data-theme="dark"] .theme-toggle,
-  html:not([data-theme]) .theme-toggle{
-    border-color: rgba(246,196,83,.35);
-    background: linear-gradient(135deg, rgba(246,196,83,0.10), rgba(255,255,255,0.04));
-  }
+/* Dark toggle style：只有手動切 dark 才用 */
+html[data-theme="dark"] .theme-toggle{
+  border-color: rgba(246,196,83,.35);
+  background: linear-gradient(135deg, rgba(246,196,83,0.10), rgba(255,255,255,0.04));
 }
