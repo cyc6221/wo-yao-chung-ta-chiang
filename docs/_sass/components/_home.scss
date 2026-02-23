@@ -1,0 +1,45 @@
+/* _sass/components/_home.scss */
+
+/* ===== Home post list (minima) ===== */
+.post-list{
+  margin: 0;
+  padding: 0;
+}
+
+.post-list > li{
+  list-style: none;
+  margin: 0 0 1rem 0;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+  box-shadow: 0 10px 24px rgba(31,41,55,0.08);
+  transition: transform .12s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.post-list > li:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(31,41,55,0.10);
+  border-color: color-mix(in srgb, var(--border) 70%, rgba(245,158,11,0.35));
+}
+
+/* 文章標題連結 */
+.post-link{
+  font-weight: 800;
+  letter-spacing: .1px;
+  text-decoration: none;
+}
+
+.post-link:hover{
+  text-decoration: underline;
+  text-decoration-thickness: .08em;
+  text-underline-offset: .18em;
+  opacity: .95;
+}
+
+/* 日期/作者等 meta（minima 會用到） */
+.post-meta{
+  color: var(--text-muted);
+  font-size: .92rem;
+  margin-top: .25rem;
+}
