@@ -7,21 +7,41 @@ permalink: /recommender_638/
 <div class="card" style="padding:1rem;">
   <h2 style="margin-top:0;">威力彩第一區：1–38 抽 6</h2>
 
-  <div style="display:grid; gap: .75rem; max-width: 560px;">
-    <label>
-      必選號碼（逗號分隔，例如：3, 8, 17）
+  <div style="display:grid; gap: .9rem; max-width: 760px;">
+    <!-- 必選 -->
+    <section>
+      <div style="display:flex; align-items:end; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <div>
+          <h3 style="margin:.2rem 0;">必選號碼</h3>
+          <div style="opacity:.8; font-size:.9rem;">點球加入/取消必選（最多 6 個）</div>
+        </div>
+        <button type="button" class="btn" id="clearMust" style="height: fit-content;">清空必選</button>
+      </div>
+      <!--  -->
+      <div id="mustRow" class="ball-row" aria-label="必選號碼球"></div>
+      <!--  -->
+      <!-- 保留 input 以支援手動輸入/顯示 -->
       <input id="mustNums" type="text" placeholder="例如：3, 8, 17"
         style="width:100%; padding:.55rem; margin-top:.25rem;">
-    </label>
-    <!--  -->
-    <label>
-      排除號碼（逗號分隔，例如：1, 2, 38）
+    </section>
+    <!-- 排除 -->
+    <section>
+      <div style="display:flex; align-items:end; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <div>
+          <h3 style="margin:.2rem 0;">排除號碼</h3>
+          <div style="opacity:.8; font-size:.9rem;">點球加入/取消排除（與必選互斥）</div>
+        </div>
+        <button type="button" class="btn" id="clearExclude" style="height: fit-content;">清空排除</button>
+      </div>
+      <!--  -->
+      <div id="excludeRow" class="ball-row" aria-label="排除號碼球"></div>
+      <!--  -->
       <input id="excludeNums" type="text" placeholder="例如：1, 2, 38"
         style="width:100%; padding:.55rem; margin-top:.25rem;">
-    </label>
-    <!--  -->
-    <label>
-      連號限制（最大允許連號長度）
+    </section>
+    <!-- 連號限制 -->
+    <section>
+      <h3 style="margin:.2rem 0;">連號限制（最大允許連號長度）</h3>
       <select id="maxRun" style="width:100%; padding:.55rem; margin-top:.25rem;">
         <option value="6">允許到 6 連號（不限制）</option>
         <option value="5">不允許 6 連號</option>
@@ -30,16 +50,15 @@ permalink: /recommender_638/
         <option value="2">不允許 3–6 連號（最多只允許 2 連號）</option>
         <option value="1">不允許 2–6 連號（完全不允許連號）</option>
       </select>
-      <div style="font-size:.9rem; opacity:.8; margin-top:.25rem;">
-        例：選「最多只允許 2 連號」表示允許 7,8 但不允許 7,8,9。
+      <div style="font-size:.9rem; opacity:.8; margin-top:.35rem;">
+        例：最多允許 2 連號 → 允許 7,8 但不允許 7,8,9
       </div>
-    </label>
-    <!--  -->
-    <button id="drawBtn" class="btn btn--primary" style="width: fit-content;">
-      抽一組
-    </button>
-    <!--  -->
-    <div id="result" style="font-size:1.25rem; font-weight:600;"></div>
+    </section>
+      <!--  -->
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;">
+      <button id="drawBtn" class="btn btn--primary">抽一組</button>
+      <div id="result" style="font-size:1.25rem; font-weight:700;"></div>
+    </div>
     <div id="error" style="color:#c00;"></div>
   </div>
 </div>
@@ -48,17 +67,22 @@ permalink: /recommender_638/
 (() => {
   const MIN = 1, MAX = 38, PICK = 6;
 
+  // ---------- utils ----------
+  const pad2 = n => String(n).padStart(2, "0");
+
   function parseNums(input) {
     if (!input.trim()) return [];
     const arr = input.split(",")
       .map(s => Number(s.trim()))
       .filter(n => Number.isInteger(n) && n >= MIN && n <= MAX);
-    // 去重
     return Array.from(new Set(arr)).sort((a,b)=>a-b);
   }
 
+  function setToCsv(set) {
+    return Array.from(set).sort((a,b)=>a-b).join(", ");
+  }
+
   function runLengthMax(sortedArr) {
-    // 回傳最大連號長度，例如 [2,3,4,9,12,13] => 最大=3（2,3,4）
     if (sortedArr.length === 0) return 0;
     let best = 1, cur = 1;
     for (let i = 1; i < sortedArr.length; i++) {
@@ -69,81 +93,194 @@ permalink: /recommender_638/
     return best;
   }
 
-  function drawWithConstraints({ must, exclude, maxRunAllowed }) {
-    // 基本檢查
-    const mustSet = new Set(must);
-    const excludeSet = new Set(exclude);
+  // ---------- state ----------
+  const mustSet = new Set();
+  const excludeSet = new Set();
 
-    // 必選與排除衝突
-    for (const n of mustSet) {
+  // ---------- dom ----------
+  const $mustRow = document.getElementById("mustRow");
+  const $excludeRow = document.getElementById("excludeRow");
+  const $mustInput = document.getElementById("mustNums");
+  const $excludeInput = document.getElementById("excludeNums");
+  const $maxRun = document.getElementById("maxRun");
+  const $btn = document.getElementById("drawBtn");
+  const $result = document.getElementById("result");
+  const $error = document.getElementById("error");
+  const $clearMust = document.getElementById("clearMust");
+  const $clearExclude = document.getElementById("clearExclude");
+
+  // ---------- render balls ----------
+  function makeBall(n) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "ball";
+    b.textContent = pad2(n);
+    b.dataset.n = String(n);
+    b.setAttribute("aria-pressed", "false");
+    return b;
+  }
+
+  // must row balls
+  const mustBalls = new Map();
+  const excludeBalls = new Map();
+
+  for (let n = MIN; n <= MAX; n++) {
+    const mb = makeBall(n);
+    const eb = makeBall(n);
+
+    // click: toggle must
+    mb.addEventListener("click", () => {
+      $error.textContent = "";
+      // 互斥：如果在排除，先移除排除
       if (excludeSet.has(n)) {
-        throw new Error(`必選與排除衝突：${n} 同時被設定為必選與排除`);
+        excludeSet.delete(n);
+        updateBallState(n);
       }
-    }
 
-    // 必選數量超過要抽的數量
-    if (mustSet.size > PICK) {
-      throw new Error(`必選號碼太多：必選 ${mustSet.size} 個，但只抽 ${PICK} 個`);
-    }
+      if (mustSet.has(n)) mustSet.delete(n);
+      else {
+        if (mustSet.size >= PICK) {
+          $error.textContent = 必選最多只能 ${PICK} 個。;
+          return;
+        }
+        mustSet.add(n);
+      }
+      syncInputs();
+      updateBallState(n);
+    });
 
-    // 可用數量不足
+    // click: toggle exclude
+    eb.addEventListener("click", () => {
+      $error.textContent = "";
+      // 互斥：如果在必選，先移除必選
+      if (mustSet.has(n)) {
+        mustSet.delete(n);
+        updateBallState(n);
+      }
+
+      if (excludeSet.has(n)) excludeSet.delete(n);
+      else excludeSet.add(n);
+
+      syncInputs();
+      updateBallState(n);
+    });
+
+    $mustRow.appendChild(mb);
+    $excludeRow.appendChild(eb);
+    mustBalls.set(n, mb);
+    excludeBalls.set(n, eb);
+  }
+
+  function updateBallState(n) {
+    const mb = mustBalls.get(n);
+    const eb = excludeBalls.get(n);
+
+    const isMust = mustSet.has(n);
+    const isEx = excludeSet.has(n);
+
+    // must ball style
+    mb.classList.toggle("ball--pick", isMust);
+    mb.classList.toggle("ball--red", false); // must區不需要紅
+    mb.setAttribute("aria-pressed", String(isMust));
+
+    // exclude ball style
+    eb.classList.toggle("ball--red", isEx);
+    eb.classList.toggle("ball--pick", false); // exclude區不需要金
+    eb.setAttribute("aria-pressed", String(isEx));
+
+    // 可選：互斥時的視覺（在另一區淡掉）
+    // 若你想更強烈，可加 opacity
+    if (isMust) eb.style.opacity = "0.35";
+    else eb.style.opacity = "1";
+
+    if (isEx) mb.style.opacity = "0.35";
+    else mb.style.opacity = "1";
+  }
+
+  function syncInputs() {
+    $mustInput.value = setToCsv(mustSet);
+    $excludeInput.value = setToCsv(excludeSet);
+  }
+
+  function refreshAllBalls() {
+    for (let n = MIN; n <= MAX; n++) updateBallState(n);
+  }
+
+  // 讓 input 也能手動改：失焦時同步回球（並維持互斥）
+  $mustInput.addEventListener("change", () => {
+    const arr = parseNums($mustInput.value);
+    mustSet.clear();
+    for (const n of arr.slice(0, PICK)) {
+      if (!excludeSet.has(n)) mustSet.add(n);
+    }
+    syncInputs();
+    refreshAllBalls();
+  });
+
+  $excludeInput.addEventListener("change", () => {
+    const arr = parseNums($excludeInput.value);
+    excludeSet.clear();
+    for (const n of arr) {
+      if (!mustSet.has(n)) excludeSet.add(n);
+    }
+    syncInputs();
+    refreshAllBalls();
+  });
+
+  $clearMust.addEventListener("click", () => {
+    mustSet.clear();
+    syncInputs();
+    refreshAllBalls();
+  });
+
+  $clearExclude.addEventListener("click", () => {
+    excludeSet.clear();
+    syncInputs();
+    refreshAllBalls();
+  });
+
+  // ---------- draw logic ----------
+  function drawWithConstraints({ maxRunAllowed }) {
+    if (mustSet.size > PICK) throw new Error(`必選 ${mustSet.size} 個，但只抽 ${PICK} 個`);
+
+    // 可用數量
     const available = [];
     for (let n = MIN; n <= MAX; n++) {
       if (!excludeSet.has(n)) available.push(n);
     }
-    if (available.length < PICK) {
-      throw new Error(`排除太多：剩下 ${available.length} 個可用，不足以抽 ${PICK} 個`);
-    }
+    if (available.length < PICK) throw new Error(`排除太多：剩下 ${available.length} 個，不足以抽 ${PICK} 個`);
 
-    // 先把必選放進去
     const base = Array.from(mustSet);
-    const need = PICK - base.length;
-
-    // 候選池：可用且不是必選
     const pool = available.filter(n => !mustSet.has(n));
+    const MAX_TRIES = 6000;
 
-    // 反覆嘗試直到符合連號規則
-    const MAX_TRIES = 5000;
     for (let t = 0; t < MAX_TRIES; t++) {
-      // 隨機抽 need 個（不重複）
       const chosen = new Set(base);
       while (chosen.size < PICK) {
         const n = pool[Math.floor(Math.random() * pool.length)];
         chosen.add(n);
       }
       const combo = Array.from(chosen).sort((a,b)=>a-b);
-
-      // 檢查最大連號長度
-      const mx = runLengthMax(combo);
-      if (mx > maxRunAllowed) continue;
-
+      if (runLengthMax(combo) > maxRunAllowed) continue;
       return combo;
     }
-
-    throw new Error("條件太嚴格，嘗試多次仍抽不到符合規則的組合（請放寬連號限制或減少排除/必選）。");
+    throw new Error("條件太嚴格，抽不到符合規則的組合（放寬連號或減少排除/必選）。");
   }
-
-  const $must = document.getElementById("mustNums");
-  const $exclude = document.getElementById("excludeNums");
-  const $maxRun = document.getElementById("maxRun");
-  const $btn = document.getElementById("drawBtn");
-  const $result = document.getElementById("result");
-  const $error = document.getElementById("error");
 
   $btn.addEventListener("click", () => {
     $error.textContent = "";
     $result.textContent = "";
-
     try {
-      const must = parseNums($must.value);
-      const exclude = parseNums($exclude.value);
       const maxRunAllowed = Number($maxRun.value);
-
-      const combo = drawWithConstraints({ must, exclude, maxRunAllowed });
-      $result.textContent = "🎲 " + combo.map(n => String(n).padStart(2,"0")).join("  ");
+      const combo = drawWithConstraints({ maxRunAllowed });
+      $result.textContent = "🎲 " + combo.map(pad2).join("  ");
     } catch (e) {
       $error.textContent = e.message || String(e);
     }
   });
+
+  // init
+  syncInputs();
+  refreshAllBalls();
 })();
 </script>
