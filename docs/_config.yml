@@ -14,7 +14,10 @@ markdown: kramdown
 highlighter: rouge
 
 header_pages:
-  - index.md
+  # - index.md
+  - pages/638.md
+  - pages/649.md
+  - pages/539.md
 
 plugins:
   - jekyll-git-metadata
