@@ -346,6 +346,7 @@
   $btn.addEventListener("click", () => {
     $error.textContent = "";
     $resultRow.innerHTML = "";
+    if ($wish) $wish.textContent = "";
 
     try {
       const runRules = readRunRules($runGrid);
