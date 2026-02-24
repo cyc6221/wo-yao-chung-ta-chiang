@@ -103,7 +103,8 @@
   const $error = document.getElementById("error");
   const $clearMust = document.getElementById("clearMust");
   const $clearExclude = document.getElementById("clearExclude");
-  const $runGrid = document.getElementById("runGrid"); // 新：連號按鈕區
+  const $runGrid = document.getElementById("runGrid");
+  const $wish = document.getElementById("wish");
 
   // 基本防呆
   if (!$mustRow || !$excludeRow) {
