@@ -354,6 +354,8 @@
 
       const combo = drawWithConstraints({ runRules });
       renderResultBalls(combo);
+      
+      if ($wish) $wish.textContent = "祝你中大獎 🎉";
     } catch (e) {
       $error.textContent = e.message || String(e);
     }
