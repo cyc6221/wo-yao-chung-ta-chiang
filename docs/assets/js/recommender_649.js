@@ -1,5 +1,6 @@
 (() => {
-  const MIN = 1, MAX = 38, PICK = 6;
+  // const MIN = 1, MAX = 38, PICK = 6;
+  const MIN = 1, MAX = 49, PICK = 6;
 
   // ---------- utils ----------
   const pad2 = n => String(n).padStart(2, "0");
@@ -17,7 +18,7 @@
   }
 
   function runLengthMax(nums) {
-    // 環狀連號：38 與 1 視為相連
+    // 環狀連號：49 與 1 視為相連
     // nums 可為排序或未排序都沒差
     const set = new Set(nums);
     if (set.size === 0) return 0;
@@ -268,7 +269,7 @@
     if (runRules[6] === "must") {
         const candidates = [];
 
-        // 環狀：起點可以是 1..38
+        // 環狀：起點可以是 1..49
         for (let start = MIN; start <= MAX; start++) {
         const combo = [];
         for (let k = 0; k < PICK; k++) {
