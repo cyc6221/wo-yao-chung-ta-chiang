@@ -9,4 +9,29 @@ toc: false
 
 ## 最新刮刮樂
 
-[第5136期：鑽很大](https://cyc6221.github.io/I-want-big-John/all-instants/5136/)
+<div class="post-list">
+  {% assign items = site.articles
+    | where: "category", "all-instants"
+    | sort: "date" | reverse %}
+
+  {% for post in items %}
+    <article class="post-item">
+      <h3 class="post-title">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </h3>
+      <!-- post.date -->
+      {% if post.date %}
+      <div class="post-meta">
+        {{ post.date | date: "%Y-%m-%d" }}
+        {% if post.tags %} · {{ post.tags | join: ", " }}{% endif %}
+      </div>
+      {% endif %}
+      <!-- post.description -->>
+      {% if post.description %}
+        <p class="post-excerpt">{{ post.description }}</p>
+      {% else %}
+        <p class="post-excerpt">{{ post.content | strip_html | truncate: 120 }}</p>
+      {% endif %}
+    </article>
+  {% endfor %}
+</div>
