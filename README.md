@@ -1,10 +1,10 @@
 # 我要中大John
 
-## wo-yao-chung-ta-chiang
+## I-want-big-John
 
 我的台灣彩券研究小站：整理玩法資訊，並規劃加入歷史開獎資料分析、視覺化與回測。
 
-- [網站](https://cyc6221.github.io/wo-yao-chung-ta-chiang/)
+- [網站](https://cyc6221.github.io/I-want-big-John/)
 
 ## 目前涵蓋彩種
 
