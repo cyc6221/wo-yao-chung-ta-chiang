@@ -26,7 +26,7 @@ toc: false
         {% if post.tags %} · {{ post.tags | join: ", " }}{% endif %}
       </div>
       {% endif %}
-      <!-- post.description -->>
+      <!-- post.description -->
       {% if post.description %}
         <p class="post-excerpt">{{ post.description }}</p>
       {% else %}
