@@ -1,6 +1,6 @@
 ---
 layout: home
-title: 我要中大獎
+title: 我要中大John
 ---
 
 <div class="hero">

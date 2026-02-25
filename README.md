@@ -1,4 +1,6 @@
-# 我要中大獎（wo-yao-chung-ta-chiang）
+# 我要中大John
+
+## wo-yao-chung-ta-chiang
 
 我的台灣彩券研究小站：整理玩法資訊，並規劃加入歷史開獎資料分析、視覺化與回測。
 
