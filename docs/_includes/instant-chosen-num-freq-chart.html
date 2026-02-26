@@ -1,0 +1,49 @@
+<div style="height:420px;">
+  <canvas id="{{ include.id | default: 'freqChart' }}"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+(function () {
+  const raw = {{ site.data.instant-chosen-num-freq | jsonify }};
+
+  // 產生 X 軸 1..100
+  const labels = Array.from({length: 100}, (_, i) => (i + 1).toString());
+
+  // 對應每個號碼的次數（沒有就當 0）
+  const values = labels.map(k => Number(raw[k] ?? 0));
+
+  const ctx = document.getElementById('{{ include.id | default: "freqChart" }}');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '{{ include.title | default: "1~100 次數分佈" }}',
+        data: values,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          ticks: {
+            // 100 個 label 太擠：每 5 個顯示一次
+            callback: function(value, index) {
+              const label = this.getLabelForValue(value);
+              return (Number(label) % 5 === 0) ? label : '';
+            }
+          }
+        },
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: '次數' }
+        }
+      }
+    }
+  });
+})();
+</script>

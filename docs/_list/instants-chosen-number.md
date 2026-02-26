@@ -14,3 +14,5 @@ description: 從 2026 年 2 月 25 日開始記錄。
 | :-: | :-: | :-: | :-: |
 | 31 | 1 | 500 | 0 |
 | 53 | 1 | 200 | 0 |
+
+{% include instant-chosen-number-freq-chart.html id="chart1" title="號碼 1~100 選號次數" %}
