@@ -5,15 +5,25 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 (function () {
-  const raw = {{ site.data.instant-chosen-num-freq | jsonify }};
+  const raw = {{ site.data.freq | jsonify }};
 
-  // 產生 X 軸 1..100
-  const labels = Array.from({length: 100}, (_, i) => (i + 1).toString());
+  // labels: "1"..."100"
+  const labels = Array.from({ length: 100 }, (_, i) => String(i + 1));
 
-  // 對應每個號碼的次數（沒有就當 0）
-  const values = labels.map(k => Number(raw[k] ?? 0));
+  // values: 對應 raw["1"]..raw["100"]，缺的補 0
+  const values = labels.map((k) => {
+    const v = raw && Object.prototype.hasOwnProperty.call(raw, k) ? raw[k] : 0;
+    const n = Number(v);
+    return Number.isFinite(n) ? n : 0;
+  });
 
-  const ctx = document.getElementById('{{ include.id | default: "freqChart" }}');
+  const canvasId = '{{ include.id | default: "freqChart" }}';
+  const ctx = document.getElementById(canvasId);
+
+  if (!ctx) {
+    console.error("Canvas not found:", canvasId);
+    return;
+  }
 
   new Chart(ctx, {
     type: 'bar',
@@ -31,9 +41,9 @@
       scales: {
         x: {
           ticks: {
-            // 100 個 label 太擠：每 5 個顯示一次
-            callback: function(value, index) {
-              const label = this.getLabelForValue(value);
+            // 每 5 個顯示一次（5,10,15...100）
+            callback: function(_, index) {
+              const label = labels[index];
               return (Number(label) % 5 === 0) ? label : '';
             }
           }
