@@ -5,7 +5,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 (function () {
-  const raw = {{ site.data.freq | jsonify }};
+  const raw = {{ site.data.instant-chosen-num-freq | jsonify }};
 
   // labels: "1"..."100"
   const labels = Array.from({ length: 100 }, (_, i) => String(i + 1));
