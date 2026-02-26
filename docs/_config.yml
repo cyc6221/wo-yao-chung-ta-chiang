@@ -19,6 +19,7 @@ header_pages:
   - pages/649.md # 大樂透
   - pages/539.md # 今彩539
   - pages/instant.md # 刮刮樂
+  - pages/list.md # 紀錄
 
 plugins:
   - jekyll-git-metadata
