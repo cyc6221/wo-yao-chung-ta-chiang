@@ -12,7 +12,7 @@ toc: false
 <div class="post-list">
   {% assign items = site.articles
     | where: "category", "all-instants"
-    | sort: "date" | reverse %}
+    | sort: "published" | reverse %}
 
   {% for post in items %}
     <article class="post-item">
