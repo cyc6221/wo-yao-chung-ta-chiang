@@ -118,3 +118,45 @@
   border: 1px solid rgba(17,24,39,0.10);
   font-weight: 900;
 }
+
+/* ===== Small ball base (縮小版球) ===== */
+.small-ball{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+
+  font-weight: 800;
+  font-size: .88rem;
+  line-height: 1;
+  letter-spacing: .02em;
+
+  color: #fff;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== small-ball: pick (橘紅色) ===== */
+.small-ball--pick{
+  color: #fff;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.70), rgba(255,255,255,0.0) 36%),
+    radial-gradient(circle at 70% 72%, rgba(0,0,0,0.18), transparent 44%),
+    linear-gradient(135deg, rgba(249,115,22,0.98), rgba(239,68,68,0.92));
+  border: 1px solid rgba(249,115,22,0.55);
+  box-shadow: 0 10px 25px rgba(249,115,22,0.18);
+}
+
+/* ===== small-ball: miss (灰色) ===== */
+.small-ball--miss{
+  color: rgba(255,255,255,0.92);
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.55), rgba(255,255,255,0.0) 36%),
+    radial-gradient(circle at 70% 72%, rgba(0,0,0,0.20), transparent 44%),
+    linear-gradient(135deg, rgba(148,163,184,0.95), rgba(71,85,105,0.92));
+  border: 1px solid rgba(100,116,139,0.55);
+  box-shadow: 0 10px 25px rgba(2,6,23,0.18);
+}
