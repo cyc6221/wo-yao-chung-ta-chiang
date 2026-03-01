@@ -2,29 +2,27 @@
 
 {%- comment -%}
 Usage:
-  {% include small-balls.html nums="31 48 73" variant="pick" %}
-  {% include small-balls.html nums="31 48 73" variant="miss" %}
-  {% include small-balls.html nums="31,48,73" variant="pick" sep="," %}
+  {% include small-balls-mix.html items="31:miss 48:miss 73:pick" %}
+  {% include small-balls-mix.html items="31:miss,48:miss,73:pick" sep="," %}
 
-Params:
-  nums    : "1 2 3" (default space-separated)
-  sep     : separator string, default " " (can be ",")
-  variant : pick | miss (default pick)
-  label   : aria-label override (optional)
+items format: "num:variant" separated by space (default) or sep
+variant: pick | miss (default miss if omitted)
 {%- endcomment -%}
 
-{%- assign raw = include.nums | default: '' -%}
+{%- assign raw = include.items | default: '' -%}
 {%- assign sep = include.sep | default: ' ' -%}
-{%- assign v = include.variant | default: 'pick' -%}
 {%- assign label = include.label | default: '選號' -%}
 
 {%- assign arr = raw | strip | split: sep -%}
 
 <span class="small-balls" aria-label="{{ label }}">
-  {%- for n in arr -%}
-    {%- assign nn = n | strip -%}
-    {%- if nn != '' -%}
-      <span class="small-ball small-ball--{{ v }}">{{ nn }}</span>
+  {%- for it in arr -%}
+    {%- assign x = it | strip -%}
+    {%- if x != '' -%}
+      {%- assign parts = x | split: ':' -%}
+      {%- assign n = parts[0] | strip -%}
+      {%- assign v = parts[1] | default: 'miss' | strip -%}
+      <span class="small-ball small-ball--{{ v }}">{{ n }}</span>
     {%- endif -%}
   {%- endfor -%}
 </span>
