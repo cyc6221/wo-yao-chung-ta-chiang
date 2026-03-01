@@ -14,6 +14,11 @@ description: 總計花費 800 元，中獎 200 元。
 
 | 日期 | 星 | 選號 | 倍數 | 期數 | 花費 | 中獎 |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| 2026/02/28 | 3 | <span class="small-ball small-ball--pick">31</span><span class="small-ball small-ball--pick">48</span><span class="small-ball small-ball--pick">73</span> | 4 | 1 | 500 | 0 |
-<!-- | 2026/02/28 | 3 | {% include small-balls.html nums="31 48 73" variant="pick" %} | 4 | 1 | 500 | 0 | -->
-| 2026/02/28 | 3 | {% include small-balls.html items="31:miss 48:miss 73:pick" %} | 4 | 1 | 500 | 0 |
+| 2026/02/28 | 3 | {% include small-balls.html items="31:miss 48:miss 73:pick" %} | 4 | 1 | 100 | 0 |
+| 2026/02/28 | 3 | {% include small-balls.html items="42:pick 48:miss 48:miss" %} | 4 | 1 | 100 | 0 |
+| 2026/02/28 | 3 | {% include small-balls.html items="06:miss 11:miss 32:miss" %} | 4 | 1 | 100 | 0 |
+| 2026/02/28 | 3 | {% include small-balls.html items="30:pick 45:miss 57:miss" %} | 4 | 1 | 100 | 0 |
+| 2026/02/28 | 3 | {% include small-balls.html items="26:pick 31:miss 57:miss" %} | 4 | 1 | 100 | 0 |
+| 2026/03/01 | 3 | {% include small-balls.html items="07:pick 23:miss 77:miss" %} | 4 | 1 | 100 | 0 |
+| 2026/03/01 | 3 | {% include small-balls.html items="07:pick 23:miss 77:pick" %} | 4 | 1 | 100 | 0 |
+| 2026/03/01 | 3 | {% include small-balls.html items="02:miss 11:miss 21:pick" %} | 4 | 1 | 100 | 0 |
