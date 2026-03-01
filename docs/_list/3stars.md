@@ -12,13 +12,90 @@ description: 總計花費 800 元，中獎 200 元。
 
 ## 購買紀錄
 
-| 日期 | 星 | 選號 | 倍數 | 期數 | 花費 | 中獎 |
-| :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| 2026/02/28 | 3 | {% include small-balls.html items="31:miss 48:miss 73:pick" %} | 4 | 1 | 100 | 0 |
-| 2026/02/28 | 3 | {% include small-balls.html items="42:pick 48:miss 48:miss" %} | 4 | 1 | 100 | 0 |
-| 2026/02/28 | 3 | {% include small-balls.html items="06:miss 11:miss 32:miss" %} | 4 | 1 | 100 | 0 |
-| 2026/02/28 | 3 | {% include small-balls.html items="30:pick 45:miss 57:miss" %} | 4 | 1 | 100 | 0 |
-| 2026/02/28 | 3 | {% include small-balls.html items="26:pick 31:miss 57:miss" %} | 4 | 1 | 100 | 0 |
-| 2026/03/01 | 3 | {% include small-balls.html items="07:pick 23:miss 77:miss" %} | 4 | 1 | 100 | 0 |
-| 2026/03/01 | 3 | {% include small-balls.html items="07:pick 23:miss 77:pick" %} | 4 | 1 | 100 | 200 |
-| 2026/03/01 | 3 | {% include small-balls.html items="02:miss 11:miss 21:pick" %} | 4 | 1 | 100 | 0 |
+<table class="buy-table">
+  <thead>
+    <tr>
+      <th style="text-align:center;">日期</th>
+      <th style="text-align:center;">星</th>
+      <th style="text-align:center;">選號</th>
+      <th style="text-align:center;">倍數</th>
+      <th style="text-align:center;">期數</th>
+      <th style="text-align:center;">花費</th>
+      <th style="text-align:center;">中獎</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:center;">2026/02/28</td>
+      <td style="text-align:center;">3</td>
+      <td style="text-align:center;">{% include small-balls.html items="31:miss 48:miss 73:pick" %}</td>
+      <td style="text-align:center;">4</td>
+      <td style="text-align:center;">1</td>
+      <td style="text-align:center;">100</td>
+      <td style="text-align:center;">0</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">2026/02/28</td>
+      <td style="text-align:center;">3</td>
+      <td style="text-align:center;">{% include small-balls.html items="42:pick 48:miss 48:miss" %}</td>
+      <td style="text-align:center;">4</td>
+      <td style="text-align:center;">1</td>
+      <td style="text-align:center;">100</td>
+      <td style="text-align:center;">0</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">2026/02/28</td>
+      <td style="text-align:center;">3</td>
+      <td style="text-align:center;">{% include small-balls.html items="06:miss 11:miss 32:miss" %}</td>
+      <td style="text-align:center;">4</td>
+      <td style="text-align:center;">1</td>
+      <td style="text-align:center;">100</td>
+      <td style="text-align:center;">0</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">2026/02/28</td>
+      <td style="text-align:center;">3</td>
+      <td style="text-align:center;">{% include small-balls.html items="30:pick 45:miss 57:miss" %}</td>
+      <td style="text-align:center;">4</td>
+      <td style="text-align:center;">1</td>
+      <td style="text-align:center;">100</td>
+      <td style="text-align:center;">0</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">2026/02/28</td>
+      <td style="text-align:center;">3</td>
+      <td style="text-align:center;">{% include small-balls.html items="26:pick 31:miss 57:miss" %}</td>
+      <td style="text-align:center;">4</td>
+      <td style="text-align:center;">1</td>
+      <td style="text-align:center;">100</td>
+      <td style="text-align:center;">0</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">2026/03/01</td>
+      <td style="text-align:center;">3</td>
+      <td style="text-align:center;">{% include small-balls.html items="07:pick 23:miss 77:miss" %}</td>
+      <td style="text-align:center;">4</td>
+      <td style="text-align:center;">1</td>
+      <td style="text-align:center;">100</td>
+      <td style="text-align:center;">0</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">2026/03/01</td>
+      <td style="text-align:center;">3</td>
+      <td style="text-align:center;">{% include small-balls.html items="07:pick 23:miss 77:pick" %}</td>
+      <td style="text-align:center;">4</td>
+      <td style="text-align:center;">1</td>
+      <td style="text-align:center;">100</td>
+      <td style="text-align:center;">200</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">2026/03/01</td>
+      <td style="text-align:center;">3</td>
+      <td style="text-align:center;">{% include small-balls.html items="02:miss 11:miss 21:pick" %}</td>
+      <td style="text-align:center;">4</td>
+      <td style="text-align:center;">1</td>
+      <td style="text-align:center;">100</td>
+      <td style="text-align:center;">0</td>
+    </tr>
+  </tbody>
+</table>
