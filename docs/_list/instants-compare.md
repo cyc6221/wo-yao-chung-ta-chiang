@@ -10,7 +10,7 @@ description: 當前市面上刮刮樂之比較表
 
 | i | 發行 | 下市 | 項目 | 售價 | 頭獎 | 頭獎張數 |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| 5133 | 2026/02/03 | 2026/08/03 | <a class="btn btn--gold" href="/I-want-big-John/all-instants/5133/">好運連發</a> | 200 | 2M | 8 |
+| 5133 | 2026/02/03 | 2026/08/03 | <a class="btn btn--gold" href="/I-want-big-John/all-instants/5133/">好運連發</a> | 200 | 2M | 7 |
 | 5135 | 2026/02/03 | 2026/08/03 | <a class="btn btn--gold" href="/I-want-big-John/all-instants/5135/">財神報到</a> | 100 | 600K | 8 |
 | 5150 | 2026/02/03 | 2026/08/03 | <a class="btn btn--gold" href="/I-want-big-John/all-instants/5150/">推金幣</a> | 100 | 500K | 8 |
 | 5136 | 2026/02/24 | 2026/08/24 | <a class="btn btn--gold" href="/I-want-big-John/all-instants/5136/">鑽很大</a> | 500 | 5M | 4 |
