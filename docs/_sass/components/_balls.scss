@@ -139,6 +139,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.small-balls{
+  display: inline-flex;
+  gap: .35rem;
+  flex-wrap: wrap;
+  vertical-align: middle;
+}
+
 /* ===== small-ball: pick (橘紅色) ===== */
 .small-ball--pick{
   color: #fff;

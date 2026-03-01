@@ -1,0 +1,30 @@
+<!-- Using in 3starts.md -->
+
+{%- comment -%}
+Usage:
+  {% include small-balls.html nums="31 48 73" variant="pick" %}
+  {% include small-balls.html nums="31 48 73" variant="miss" %}
+  {% include small-balls.html nums="31,48,73" variant="pick" sep="," %}
+
+Params:
+  nums    : "1 2 3" (default space-separated)
+  sep     : separator string, default " " (can be ",")
+  variant : pick | miss (default pick)
+  label   : aria-label override (optional)
+{%- endcomment -%}
+
+{%- assign raw = include.nums | default: '' -%}
+{%- assign sep = include.sep | default: ' ' -%}
+{%- assign v = include.variant | default: 'pick' -%}
+{%- assign label = include.label | default: '選號' -%}
+
+{%- assign arr = raw | strip | split: sep -%}
+
+<span class="small-balls" aria-label="{{ label }}">
+  {%- for n in arr -%}
+    {%- assign nn = n | strip -%}
+    {%- if nn != '' -%}
+      <span class="small-ball small-ball--{{ v }}">{{ nn }}</span>
+    {%- endif -%}
+  {%- endfor -%}
+</span>
