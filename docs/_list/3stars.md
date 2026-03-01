@@ -14,4 +14,4 @@ description: 總計花費 1100 元，中獎 0 元。
 
 | 日期 | 星 | 選號 | 倍數 | 期數 | 花費 | 中獎 |
 | :-: | :-: | :-: | :-: | :-: |
-| 2026/02/28 | 3 | <span class="pick-num">31</span><span class="pick-num">48</span><span class="pick-num">73</span> | 4 | 1 | 500 | 0 |
+| 2026/02/28 | 3 | <span class="ball--pick">31</span><span class="ball--pick">48</span><span class="ball--pick">73</span> | 4 | 1 | 500 | 0 |
