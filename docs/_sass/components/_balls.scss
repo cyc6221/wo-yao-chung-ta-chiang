@@ -142,7 +142,9 @@
 .small-balls{
   display: inline-flex;
   gap: .35rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  align-items: center;
   vertical-align: middle;
 }
 
