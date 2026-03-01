@@ -1,9 +1,11 @@
 <!-- Using in 3starts.md -->
 
+<!-- _includes/small-balls.html (inline-safe for Markdown tables) -->
+
 {%- comment -%}
 Usage:
-  {% include small-balls-mix.html items="31:miss 48:miss 73:pick" %}
-  {% include small-balls-mix.html items="31:miss,48:miss,73:pick" sep="," %}
+  {% include small-balls.html items="31:miss 48:miss 73:pick" %}
+  {% include small-balls.html items="31:miss,48:miss,73:pick" sep="," %}
 
 items format: "num:variant" separated by space (default) or sep
 variant: pick | miss (default miss if omitted)
@@ -15,14 +17,7 @@ variant: pick | miss (default miss if omitted)
 
 {%- assign arr = raw | strip | split: sep -%}
 
-<span class="small-balls" aria-label="{{ label }}">
-  {%- for it in arr -%}
-    {%- assign x = it | strip -%}
-    {%- if x != '' -%}
-      {%- assign parts = x | split: ':' -%}
-      {%- assign n = parts[0] | strip -%}
-      {%- assign v = parts[1] | default: 'miss' | strip -%}
-      <span class="small-ball small-ball--{{ v }}">{{ n }}</span>
-    {%- endif -%}
-  {%- endfor -%}
-</span>
+{%- capture html -%}
+<span class="small-balls" aria-label="{{ label }}">{%- for it in arr -%}{%- assign x = it | strip -%}{%- if x != '' -%}{%- assign parts = x | split: ':' -%}{%- assign n = parts[0] | strip -%}{%- assign v = parts[1] | default: 'miss' | strip -%}<span class="small-ball small-ball--{{ v }}">{{ n }}</span>{%- endif -%}{%- endfor -%}</span>
+{%- endcapture -%}
+{{- html | strip_newlines -}}
