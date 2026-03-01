@@ -16,4 +16,4 @@ description: 總計花費 800 元，中獎 200 元。
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | 2026/02/28 | 3 | <span class="small-ball small-ball--pick">31</span><span class="small-ball small-ball--pick">48</span><span class="small-ball small-ball--pick">73</span> | 4 | 1 | 500 | 0 |
 <!-- | 2026/02/28 | 3 | {% include small-balls.html nums="31 48 73" variant="pick" %} | 4 | 1 | 500 | 0 | -->
-| 2026/02/28 | 3 | {% include small-ball.html items="31:miss 48:miss 73:pick" %} | 4 | 1 | 500 | 0 |
+| 2026/02/28 | 3 | {% include small-balls.html items="31:miss 48:miss 73:pick" %} | 4 | 1 | 500 | 0 |
